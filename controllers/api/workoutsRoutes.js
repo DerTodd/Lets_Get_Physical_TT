@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Workout = require("../../models/Workout")
+const { Workout } = require("../../models")
 const db = require("../../models");
 
 router.get ("/", async (req, res) => {
@@ -14,15 +14,29 @@ router.get ("/", async (req, res) => {
   ])
   res.json(allWorkouts)
 });
-
-router.post ("/", async (req, res) => {
-  const newWorkout = await Workout.create({})
-  res.json(newWorkout)
+// Add a new exercise
+router.post("/", (req, res) => {
+  
+  Workout.create({})
+  .then(dbexercises => {
+    console.log(dbexercises)
+      res.json(dbexercises);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
 });
+
+// router.post ("/", async (req, res) => {
+//   //console.log(body);
+//   const newWorkout = await Workout.create({})
+//   console.log(newWorkout)
+//   res.json(newWorkout)
+// });
 
 router.put ("/:id", async (req, res) => {
   const updateWorkout = await Workout.findByIdAndUpdate(req.params.id,
-    {$push: {exercise: req.body}},
+    {$push: {exercises: req.body}},
     {new: true})
     res.json(updateWorkout)
 });
@@ -64,16 +78,7 @@ module.exports = router;
 //     });
 // });
   
-//   // Add a new exercise
-//   router.put("/", ({ body }, res) => {
-//     db.Exercise.create(body)
-//     .then(dbexercises => {
-//         res.json(dbexercises);
-//       })
-//       .catch(err => {
-//         res.status(400).json(err);
-//       });
-//   });
+  
   
 //   // create a workout
 //   router.post("/", ({ body }, res) => {
