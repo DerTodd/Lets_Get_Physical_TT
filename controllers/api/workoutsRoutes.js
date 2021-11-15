@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Workout = require("../../models/Workout")
 const db = require("../../models");
 
-router.get ("/workouts", async (req, res) => {
+router.get ("/", async (req, res) => {
   const allWorkouts = await Workout.aggregate([
     {
       $addFields: {
@@ -15,12 +15,12 @@ router.get ("/workouts", async (req, res) => {
   res.json(allWorkouts)
 });
 
-router.post ("/workouts", async (req, res) => {
+router.post ("/", async (req, res) => {
   const newWorkout = await Workout.create({})
   res.json(newWorkout)
 });
 
-router.put ("/workouts/:id", async (req, res) => {
+router.put ("/:id", async (req, res) => {
   const updateWorkout = await Workout.findByIdAndUpdate(req.params.id,
     {$push: {exercise: req.body}},
     {new: true})
@@ -28,7 +28,7 @@ router.put ("/workouts/:id", async (req, res) => {
 });
 
 
-router.get ("/workouts/range", async (req, res) => {
+router.get ("/range", async (req, res) => {
 const allWorkouts = await Workout.aggregate([
   {
     $addFields: {
