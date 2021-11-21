@@ -43,7 +43,7 @@ You can see your progress with the Dashboard
 
   <a name='contri'></a>
   ### Contributions:
-      Brian and Chuck
+      Brian https://github.com/bmalbright and Chuck https://github.com/chuck2076
 
   <a name='tests'></a>
   ### Tests
